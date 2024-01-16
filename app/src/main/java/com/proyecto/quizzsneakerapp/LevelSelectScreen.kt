@@ -11,8 +11,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,6 +33,8 @@ import com.proyecto.quizzsneakerapp.navegation.AppScreens
 fun LevelSelectScreen(navController: NavHostController) {
     val niveles = getLevels()
     Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
+
+
         LazyColumn(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +47,7 @@ fun LevelSelectScreen(navController: NavHostController) {
                         .clickable { /* Manejar el clic aquí */ }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
                         .height(50.dp)
-                        .width(500.dp), shape = RoundedCornerShape(8.dp), onClick = {navController.navigate(AppScreens.Questions.route)}
+                        .width(500.dp), shape = RoundedCornerShape(8.dp), onClick = {navController.navigate(AppScreens.QuestionsScreen.route)}
 
                     ) {
                     Text(
@@ -52,6 +58,18 @@ fun LevelSelectScreen(navController: NavHostController) {
                     )
                 }
             }
+        }
+
+
+        Box(modifier = Modifier.fillMaxSize()){
+            IconButton(onClick = {
+                navController.navigate(AppScreens.MenuScreen.route)
+
+            }){
+                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+            }
+
+
         }
     }
 

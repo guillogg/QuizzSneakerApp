@@ -10,16 +10,16 @@ import com.proyecto.quizzsneakerapp.QuestionsScreen
 import com.proyecto.quizzsneakerapp.ui.AnswersViewModel
 
 @Composable
-fun navigation (navHostController: NavHostController, answersViewModel: AnswersViewModel){
-    NavHost(navController = navHostController, startDestination = AppScreens.MenuScreen.route){
-        composable(route = AppScreens.MenuScreen.route){
-            MenuScreen(navController = navHostController)
+fun navigation(navHostController: NavHostController, answersViewModel: AnswersViewModel) {
+    NavHost(navController = navHostController, startDestination = AppScreens.MenuScreen.route) {
+        composable(route = AppScreens.MenuScreen.route) {
+            MenuScreen(navHostController)
         }
-        composable(route = AppScreens.LevelSelectScreen.route){
-            LevelSelectScreen(navController = navHostController)
+        composable(route = AppScreens.LevelSelectScreen.route) {
+            LevelSelectScreen(navHostController)
         }
-        composable(route = AppScreens.Questions.route){
-            QuestionsScreen(navController = navHostController,answersViewModel)
+        composable(route = AppScreens.QuestionsScreen.route) {
+            QuestionsScreen(navHostController, answersViewModel)
         }
     }
 }

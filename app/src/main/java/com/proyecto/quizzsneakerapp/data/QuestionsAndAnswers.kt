@@ -6,8 +6,8 @@ import com.proyecto.quizzsneakerapp.model.QuestionAndAnswerModel
 
 class QuestionAndAnswerProvider {
     companion object {
-        fun QuestionAndAnswerProviderReturn(posicion: Int):QuestionAndAnswerModel{
-            return  QuestionAndAnswerModel[posicion]
+        fun QuestionAndAnswerProviderReturn(posicion: Int): QuestionAndAnswerModel {
+            return QuestionAndAnswerModel[posicion]
         }
 
         val QuestionAndAnswerModel = listOf<QuestionAndAnswerModel>(

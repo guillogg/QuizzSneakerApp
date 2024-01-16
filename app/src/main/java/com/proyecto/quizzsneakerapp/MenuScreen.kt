@@ -26,7 +26,9 @@ fun MenuScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.fondomenu),
             contentDescription = "",
             contentScale = ContentScale.FillBounds,
-            modifier = Modifier.matchParentSize().blur(10.dp, radiusY = 10.dp)
+            modifier = Modifier
+                .matchParentSize()
+                .blur(10.dp, radiusY = 10.dp)
         )
         Column(
             modifier = Modifier

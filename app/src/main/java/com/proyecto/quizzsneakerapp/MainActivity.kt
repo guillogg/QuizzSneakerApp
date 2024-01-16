@@ -14,7 +14,7 @@ import com.proyecto.quizzsneakerapp.ui.AnswersViewModel
 import com.proyecto.quizzsneakerapp.ui.theme.QuizzSneakerAppTheme
 
 class MainActivity : ComponentActivity() {
-    private val answersViewModel:AnswersViewModel by viewModels()
+    private val answersViewModel: AnswersViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    navigation(navController,answersViewModel)
+                    navigation(navController, answersViewModel)
                 }
             }
         }
