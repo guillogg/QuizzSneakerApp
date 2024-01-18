@@ -196,7 +196,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
     }
     if(finish==true){
         answersViewModel.setFinish()
-        navController.navigate(AppScreens.ScoreScreen.route)
+        navController.navigate(AppScreens.ScoreScreen.route+"/$score")
 
     }
 

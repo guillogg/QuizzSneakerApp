@@ -28,7 +28,6 @@ class AnswersViewModel : ViewModel() {
 
     fun getQuestion(dificultad: Int) {
         val question = QuestionAndAnswerProvider.QuestionAndAnswerProviderReturn(dificultad,questionIdCounter)
-        Log.d("prueba",dificultad.toString())
         if (question.list.isNotEmpty()){
             QuestionAndAnswerModel.postValue(question)
         }
@@ -43,7 +42,7 @@ class AnswersViewModel : ViewModel() {
     fun NextQuestion(dificultad: Int) {
 
         viewModelScope.launch {
-            delay(1000)
+            delay(100)
 
             val ListaActual = MutableList(3) { Color.Gray }
             Result.value = ListaActual
@@ -59,7 +58,7 @@ class AnswersViewModel : ViewModel() {
     }
     fun setFinish(){
         finish.value = false
-        reset()
+
     }
 
 
@@ -84,7 +83,7 @@ class AnswersViewModel : ViewModel() {
 
         Result.value = listaActual
         NextQuestion(dificultad)
-
+        Log.d("args",score.toString())
     }
 
 }

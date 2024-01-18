@@ -44,8 +44,11 @@ fun navigation(navHostController: NavHostController, answersViewModel: AnswersVi
 
 
 
-        composable(route = AppScreens.ScoreScreen.route) {
-            ScoreScreen(navHostController, answersViewModel)
+        composable(route = AppScreens.ScoreScreen.route+"/{score}",
+        arguments = listOf(navArgument(name = "score"){type = NavType.IntType})
+        ) {
+            val score = it.arguments?.getInt("score")
+            ScoreScreen(navHostController, answersViewModel,score!!)
         }
     }
 }
