@@ -5,8 +5,8 @@ import com.proyecto.quizzsneakerapp.model.LevelModel
 
 fun getLevels(): List<LevelModel> {
     return listOf(
-        LevelModel("Facil", 10, R.drawable.nivelfacil),
-        LevelModel("Normal", 10, R.drawable.nivelnormal),
-        LevelModel("Dificil", 10, R.drawable.niveldificil)
+        LevelModel("Facil", 10,0),
+        LevelModel("Normal", 10, 1),
+        LevelModel("Dificil", 10,2)
     )
 }

@@ -1,5 +1,6 @@
 package com.proyecto.quizzsneakerapp
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,7 +33,8 @@ import com.proyecto.quizzsneakerapp.navegation.AppScreens
 @Composable
 fun LevelSelectScreen(navController: NavHostController) {
     val niveles = getLevels()
-    Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
+
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
         LazyColumn(
@@ -42,14 +44,14 @@ fun LevelSelectScreen(navController: NavHostController) {
 
             itemsIndexed(niveles) { index, nivelItem ->
                 Card(
-
                     modifier = Modifier
-                        .clickable { /* Manejar el clic aquí */ }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
                         .height(50.dp)
-                        .width(500.dp), shape = RoundedCornerShape(8.dp), onClick = {navController.navigate(AppScreens.QuestionsScreen.route)}
-
-                    ) {
+                        .width(500.dp), shape = RoundedCornerShape(8.dp), onClick = {
+                        navController.navigate(AppScreens.QuestionsScreen.route + "/$index")
+                        Log.d("prueba",index.toString())
+                    }
+                ) {
                     Text(
                         text = nivelItem.dificultad,
                         fontSize = 40.sp,
@@ -58,14 +60,15 @@ fun LevelSelectScreen(navController: NavHostController) {
                     )
                 }
             }
+
         }
 
 
-        Box(modifier = Modifier.fillMaxSize()){
+        Box(modifier = Modifier.fillMaxSize()) {
             IconButton(onClick = {
                 navController.navigate(AppScreens.MenuScreen.route)
 
-            }){
+            }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
             }
 

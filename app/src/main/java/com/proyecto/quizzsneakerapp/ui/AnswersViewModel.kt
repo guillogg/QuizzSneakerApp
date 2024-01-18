@@ -1,6 +1,7 @@
 package com.proyecto.quizzsneakerapp.ui
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
 
@@ -18,53 +19,71 @@ class AnswersViewModel : ViewModel() {
     val scoreModel = MutableLiveData(0)
     val QuestionAndAnswerModel = MutableLiveData<QuestionAndAnswerModel>()
     val Result = MutableLiveData<List<Color>>()
+    val finish = MutableLiveData<Boolean>()
+
 
     init {
         Result.value = List(3) { Color.Gray }
     }
 
-    fun getQuestion() {
-
-        val question = QuestionAndAnswerProvider.QuestionAndAnswerProviderReturn(questionIdCounter)
-        QuestionAndAnswerModel.postValue(question)
+    fun getQuestion(dificultad: Int) {
+        val question = QuestionAndAnswerProvider.QuestionAndAnswerProviderReturn(dificultad,questionIdCounter)
+        Log.d("prueba",dificultad.toString())
+        if (question.list.isNotEmpty()){
+            QuestionAndAnswerModel.postValue(question)
+        }
+        else {
+            // Manejar el caso en el que no haya preguntas disponibles para la dificultad proporcionada
+            // Puedes agregar un comportamiento específico, como log, mensaje de error, etc.
+            Log.e("AnswersViewModel", "No hay preguntas disponibles para la dificultad $dificultad")
+        }
 
     }
 
-    fun NextQuestion() {
+    fun NextQuestion(dificultad: Int) {
 
-       viewModelScope.launch {
-           delay(1000)
-           questionIdCounter++
+        viewModelScope.launch {
+            delay(1000)
+
             val ListaActual = MutableList(3) { Color.Gray }
             Result.value = ListaActual
-           getQuestion()
+            ++questionIdCounter
+            if(questionIdCounter==10){
+                finish.value = true
+            }else{
+                getQuestion(dificultad)
+            }
 
         }
 
-
     }
-    fun reset(){
+    fun setFinish(){
+        finish.value = false
+        reset()
+    }
+
+
+    fun reset() {
         questionIdCounter = 0
         scoreModel.value = 0
         score = 0
         Result.value = List(3) { Color.Gray }
-
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun CheckAnswers(int: Int) {
+    fun CheckAnswers(dificultad: Int,int: Int) {
         val listaActual = Result.value?.toMutableList() ?: mutableListOf()
 
-            if (QuestionAndAnswerModel.value!!.respuesta == QuestionAndAnswerModel.value!!.list[int]) {
-                scoreModel.postValue(++score)
-                listaActual.add(int, Color.Green)
+        if (QuestionAndAnswerModel.value!!.respuesta == QuestionAndAnswerModel.value!!.list[int]) {
+            scoreModel.postValue(++score)
+            listaActual.add(int, Color.Green)
 
-            } else {
-                listaActual.add(int, Color.Red)
-            }
+        } else {
+            listaActual.add(int, Color.Red)
+        }
 
         Result.value = listaActual
-        NextQuestion()
+        NextQuestion(dificultad)
 
     }
 

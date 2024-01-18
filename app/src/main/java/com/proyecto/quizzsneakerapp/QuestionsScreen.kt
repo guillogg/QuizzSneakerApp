@@ -47,14 +47,15 @@ import kotlin.math.log
 
 
 @Composable
-fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewModel) {
+fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewModel,dificultad: Int) {
     // Observa los cambios en el ViewModel
 
-    val questionAndAnswerModel by remember { answersViewModel.QuestionAndAnswerModel }.observeAsState()
+    val questionAndAnswerModel by remember { answersViewModel.QuestionAndAnswerModel}.observeAsState()
     val result: List<Color> by remember { answersViewModel.Result }.observeAsState(listOf(Color.Gray,Color.Gray,Color.Gray))
     val score by remember { answersViewModel.scoreModel }.observeAsState()
+    val finish by remember {answersViewModel.finish}.observeAsState()
 
-
+    answersViewModel.getQuestion(dificultad)
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,7 +80,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
         }
     }
 
-    answersViewModel.getQuestion()
+
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -95,7 +96,6 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
         ) {
             questionAndAnswerModel?.let {
                 Spacer(modifier = Modifier.height(20.dp))
-                Log.d("funciona","hasta aca entro")
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -117,7 +117,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(0)
+                            answersViewModel.CheckAnswers(dificultad,0)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
@@ -143,7 +143,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(1)
+                            answersViewModel.CheckAnswers(dificultad,1)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
@@ -169,7 +169,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(2)
+                            answersViewModel.CheckAnswers(dificultad,2)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
@@ -194,5 +194,11 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
             }
         }
     }
+    if(finish==true){
+        answersViewModel.setFinish()
+        navController.navigate(AppScreens.ScoreScreen.route)
+
+    }
+
 
 }
