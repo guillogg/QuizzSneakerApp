@@ -1,6 +1,5 @@
 package com.proyecto.quizzsneakerapp
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,19 +16,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,21 +31,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.proyecto.quizzsneakerapp.navegation.AppScreens
 import com.proyecto.quizzsneakerapp.ui.AnswersViewModel
-import kotlinx.coroutines.delay
-import kotlin.math.log
 
 
 @Composable
 fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewModel,dificultad: Int) {
     // Observa los cambios en el ViewModel
 
-    val questionAndAnswerModel by remember { answersViewModel.QuestionAndAnswerModel}.observeAsState()
-    val result: List<Color> by remember { answersViewModel.Result }.observeAsState(listOf(Color.Gray,Color.Gray,Color.Gray))
+    val questionAndAnswerModel by remember { answersViewModel.questionAndAnswerModel}.observeAsState()
+    val result: List<Color> by remember { answersViewModel.result }.observeAsState(listOf(Color.Gray,Color.Gray,Color.Gray))
     val score by remember { answersViewModel.scoreModel }.observeAsState()
     val finish by remember {answersViewModel.finish}.observeAsState()
 
@@ -111,7 +101,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(dificultad,0)
+                            answersViewModel.checkAnswers(dificultad,0)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
@@ -137,7 +127,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(dificultad,1)
+                            answersViewModel.checkAnswers(dificultad,1)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)
@@ -163,7 +153,7 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
                 Card(
                     modifier = Modifier
                         .clickable {
-                            answersViewModel.CheckAnswers(dificultad,2)
+                            answersViewModel.checkAnswers(dificultad,2)
 
                         }
                         .padding(top = 8.dp, bottom = 8.dp, end = 16.dp, start = 16.dp)

@@ -1,6 +1,5 @@
 package com.proyecto.quizzsneakerapp.model
 
-import androidx.annotation.DrawableRes
 
 data class QuestionAndAnswerModel(
     var pregunta:String,

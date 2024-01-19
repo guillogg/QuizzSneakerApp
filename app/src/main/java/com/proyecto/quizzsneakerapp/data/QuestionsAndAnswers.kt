@@ -1,7 +1,6 @@
 package com.proyecto.quizzsneakerapp.data
 
 import android.util.Log
-import com.proyecto.quizzsneakerapp.R
 import com.proyecto.quizzsneakerapp.model.QuestionAndAnswerModel
 
 
@@ -187,7 +186,7 @@ class QuestionAndAnswerProvider {
         }
 
 
-        fun QuestionAndAnswerProviderReturn(
+        fun questionAndAnswerProviderReturn(
             dificultad: Int,
             pregunta: Int
         ): QuestionAndAnswerModel {

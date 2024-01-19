@@ -17,19 +17,19 @@ class AnswersViewModel : ViewModel() {
     private var questionIdCounter = 0
     private var score = 0
     val scoreModel = MutableLiveData(0)
-    val QuestionAndAnswerModel = MutableLiveData<QuestionAndAnswerModel>()
-    val Result = MutableLiveData<List<Color>>()
+    val questionAndAnswerModel = MutableLiveData<QuestionAndAnswerModel>()
+    val result = MutableLiveData<List<Color>>()
     val finish = MutableLiveData<Boolean>()
 
 
     init {
-        Result.value = List(3) { Color.Gray }
+        result.value = List(3) { Color.Gray }
     }
 
     fun getQuestion(dificultad: Int) {
-        val question = QuestionAndAnswerProvider.QuestionAndAnswerProviderReturn(dificultad,questionIdCounter)
+        val question = QuestionAndAnswerProvider.questionAndAnswerProviderReturn(dificultad,questionIdCounter)
         if (question.list.isNotEmpty()){
-            QuestionAndAnswerModel.postValue(question)
+            questionAndAnswerModel.postValue(question)
         }
         else {
             // Manejar el caso en el que no haya preguntas disponibles para la dificultad proporcionada
@@ -39,13 +39,13 @@ class AnswersViewModel : ViewModel() {
 
     }
 
-    fun NextQuestion(dificultad: Int) {
+    private fun nextQuestion(dificultad: Int) {
 
         viewModelScope.launch {
             delay(100)
 
-            val ListaActual = MutableList(3) { Color.Gray }
-            Result.value = ListaActual
+            val listaActual = MutableList(3) { Color.Gray }
+            result.value = listaActual
             ++questionIdCounter
             if(questionIdCounter==10){
                 finish.value = true
@@ -66,14 +66,14 @@ class AnswersViewModel : ViewModel() {
         questionIdCounter = 0
         scoreModel.value = 0
         score = 0
-        Result.value = List(3) { Color.Gray }
+        result.value = List(3) { Color.Gray }
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun CheckAnswers(dificultad: Int,int: Int) {
-        val listaActual = Result.value?.toMutableList() ?: mutableListOf()
+    fun checkAnswers(dificultad: Int, int: Int) {
+        val listaActual = result.value?.toMutableList() ?: mutableListOf()
 
-        if (QuestionAndAnswerModel.value!!.respuesta == QuestionAndAnswerModel.value!!.list[int]) {
+        if (questionAndAnswerModel.value!!.respuesta == questionAndAnswerModel.value!!.list[int]) {
             scoreModel.postValue(++score)
             listaActual.add(int, Color.Green)
 
@@ -81,8 +81,8 @@ class AnswersViewModel : ViewModel() {
             listaActual.add(int, Color.Red)
         }
 
-        Result.value = listaActual
-        NextQuestion(dificultad)
+        result.value = listaActual
+        nextQuestion(dificultad)
         Log.d("args",score.toString())
     }
 
