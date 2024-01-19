@@ -56,28 +56,22 @@ fun QuestionsScreen(navController: NavController, answersViewModel: AnswersViewM
     val finish by remember {answersViewModel.finish}.observeAsState()
 
     answersViewModel.getQuestion(dificultad)
-    Box(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(end = 20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 20.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = {
+        IconButton(onClick = {
 
-                    navController.popBackStack()
-                    answersViewModel.reset()
-            }) {
-                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+            navController.popBackStack()
+            answersViewModel.reset()
+        }) {
+            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
 
-            }
-            Text(text = "Puntaje:$score", fontWeight = FontWeight.Bold, fontSize = 20.sp)
         }
+        Text(text = "Puntaje:$score", fontWeight = FontWeight.Bold, fontSize = 20.sp)
     }
 
 
